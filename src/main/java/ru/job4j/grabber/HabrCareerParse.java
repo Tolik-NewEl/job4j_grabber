@@ -7,8 +7,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HabrCareerParse {
 
@@ -17,9 +15,8 @@ public class HabrCareerParse {
     private static final String PAGE_LINK = String.format("%s/vacancies/java_developer", SOURCE_LINK);
 
     public static void main(String[] args) throws IOException {
-        List<String> parse = pagesParse(5);
-        for (String page : parse) {
-            Connection connection = Jsoup.connect(page);
+        for (int i = 1; i <= 5; i++) {
+            Connection connection = Jsoup.connect(String.format("%s%s", PAGE_LINK, "?page=" + i));
             Document document = connection.get();
             Elements rows = document.select(".vacancy-card__inner");
             rows.forEach(row -> {
@@ -33,14 +30,5 @@ public class HabrCareerParse {
                 System.out.printf("%s %s %s%n", vacancyName, link, fullDate);
             });
         }
-    }
-
-    private static List<String> pagesParse(int quantity) {
-        StringBuilder stringBuilder = new StringBuilder(PAGE_LINK + "?page=");
-        List<String> pages = new ArrayList<>();
-        for (int i = 1; i <= quantity; i++) {
-            pages.add(stringBuilder.append(i).toString());
-        }
-        return pages;
     }
 }
