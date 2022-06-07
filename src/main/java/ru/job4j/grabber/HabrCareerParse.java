@@ -74,22 +74,22 @@ public class HabrCareerParse implements Parse {
         return rsl;
     }
 
-    private String retrieveTitle (Element element) {
+    private String retrieveTitle(Element element) {
         return element.select(".vacancy-card__title").first().text();
     }
 
-    private String retrieveLink (Element element) {
+    private String retrieveLink(Element element) {
         return element.select(".vacancy-card__title")
                 .first().child(0).attr("href");
     }
 
-    private LocalDateTime retrieveDate (Element element) {
+    private LocalDateTime retrieveDate(Element element) {
         HabrCareerDateTimeParser habrDate = new HabrCareerDateTimeParser();
         Element dateElement = element.select(".vacancy-card__date").first().child(0);
         return habrDate.parse(dateElement.attr("datetime"));
     }
 
-    public Post createPost (Element element) throws IOException {
+    public Post createPost(Element element) throws IOException {
         return new Post(
                 retrieveTitle(element),
                 retrieveLink(element),
