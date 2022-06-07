@@ -6,7 +6,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import ru.job4j.grabber.utils.DateTimeParser;
-import ru.job4j.grabber.utils.HabrCareerDateTimeParser;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -16,17 +15,16 @@ import java.util.List;
 public class HabrCareerParse implements Parse {
 
     private static final String SOURCE_LINK = "https://career.habr.com";
-
     private static final String PAGE_LINK = String.format("%s/vacancies/java_developer", SOURCE_LINK);
+    private final DateTimeParser dateTimeParser;
+    public static final int PAGES = 5;
 
-    private final HabrCareerDateTimeParser dateTimeParser;
-
-    public HabrCareerParse(HabrCareerDateTimeParser dateTimeParser) {
+    public HabrCareerParse(DateTimeParser dateTimeParser) {
         this.dateTimeParser = dateTimeParser;
     }
 
     public static void main(String[] args) throws IOException {
-        for (int j = 1; j <= 5; j++) {
+        for (int j = 1; j <= PAGES; j++) {
             Connection connection = Jsoup.connect(String.format("%s%s", PAGE_LINK, "?page=" + j));
             Document document = connection.get();
             Elements rows = document.select(".vacancy-card__inner");
@@ -55,9 +53,9 @@ public class HabrCareerParse implements Parse {
     public List<Post> list(String link) {
         List<Post> rsl = new ArrayList<>();
         try {
-            for (int i = 1; i <= 5; i++) {
+            for (int i = 1; i <= PAGES; i++) {
                 Connection connection =
-                        Jsoup.connect(String.format("%s%s", PAGE_LINK, "?page=" + i));
+                        Jsoup.connect(String.format("%s%s", link, "?page=" + i));
                 Document document = connection.get();
                 Elements rows = document.select(".vacancy-card__inner");
                 rows.forEach(row -> {
@@ -84,9 +82,8 @@ public class HabrCareerParse implements Parse {
     }
 
     private LocalDateTime retrieveDate(Element element) {
-        HabrCareerDateTimeParser habrDate = new HabrCareerDateTimeParser();
         Element dateElement = element.select(".vacancy-card__date").first().child(0);
-        return habrDate.parse(dateElement.attr("datetime"));
+        return dateTimeParser.parse(dateElement.attr("datetime"));
     }
 
     public Post createPost(Element element) throws IOException {
