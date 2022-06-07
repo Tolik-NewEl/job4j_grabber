@@ -5,14 +5,25 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ru.job4j.grabber.utils.DateTimeParser;
+import ru.job4j.grabber.utils.HabrCareerDateTimeParser;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-public class HabrCareerParse {
+public class HabrCareerParse implements Parse {
 
     private static final String SOURCE_LINK = "https://career.habr.com";
 
     private static final String PAGE_LINK = String.format("%s/vacancies/java_developer", SOURCE_LINK);
+
+    private final HabrCareerDateTimeParser dateTimeParser;
+
+    public HabrCareerParse(HabrCareerDateTimeParser dateTimeParser) {
+        this.dateTimeParser = dateTimeParser;
+    }
 
     public static void main(String[] args) throws IOException {
         for (int j = 1; j <= 5; j++) {
@@ -32,9 +43,58 @@ public class HabrCareerParse {
         }
     }
 
-    private String retrieveDescription(String link) throws IOException {
+    private String retrieveDescription(Element element) throws IOException {
+        Element descElement = element.select(".vacancy-card__icon-link").first().child(0);
+        String link = String.format("%s%s", SOURCE_LINK, descElement.attr("href"));
         Connection connection = Jsoup.connect(link);
         Document document = connection.get();
         return document.select(".job_show_description__body").first().text();
+    }
+
+    @Override
+    public List<Post> list(String link) {
+        List<Post> rsl = new ArrayList<>();
+        try {
+            for (int i = 1; i <= 5; i++) {
+                Connection connection =
+                        Jsoup.connect(String.format("%s%s", PAGE_LINK, "?page=" + i));
+                Document document = connection.get();
+                Elements rows = document.select(".vacancy-card__inner");
+                rows.forEach(row -> {
+                    try {
+                        rsl.add(createPost(row));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+        return rsl;
+    }
+
+    private String retrieveTitle (Element element) {
+        return element.select(".vacancy-card__title").first().text();
+    }
+
+    private String retrieveLink (Element element) {
+        return element.select(".vacancy-card__title")
+                .first().child(0).attr("href");
+    }
+
+    private LocalDateTime retrieveDate (Element element) {
+        HabrCareerDateTimeParser habrDate = new HabrCareerDateTimeParser();
+        Element dateElement = element.select(".vacancy-card__date").first().child(0);
+        return habrDate.parse(dateElement.attr("datetime"));
+    }
+
+    public Post createPost (Element element) throws IOException {
+        return new Post(
+                retrieveTitle(element),
+                retrieveLink(element),
+                retrieveDescription(element),
+                retrieveDate(element)
+        );
     }
 }
