@@ -46,7 +46,7 @@ public class HabrCareerParse implements Parse {
         String link = String.format("%s%s", SOURCE_LINK, descElement.attr("href"));
         Connection connection = Jsoup.connect(link);
         Document document = connection.get();
-        return document.select(".job_show_description__body").first().text();
+        return document.select(".job_show_description__vacancy_description").text();
     }
 
     @Override
