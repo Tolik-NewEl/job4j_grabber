@@ -42,11 +42,15 @@ public class HabrCareerParse implements Parse {
     }
 
     private String retrieveDescription(Element element) throws IOException {
-        Element descElement = element.select(".vacancy-card__icon-link").first().child(0);
-        String link = String.format("%s%s", SOURCE_LINK, descElement.attr("href"));
-        Connection connection = Jsoup.connect(link);
+        Element descElement =
+                element.select(".vacancy-card__icon-link").first().child(0);
+        Element linkElement = element.select(".vacancy-card__title").first().child(0);
+        String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
+        String descriptionLink =
+                String.format("%s%s", link, descElement.attr("href"));
+        Connection connection = Jsoup.connect(descriptionLink);
         Document document = connection.get();
-        return document.select(".job_show_description__vacancy_description").text();
+        return document.select(".job_show_description__body").first().text();
     }
 
     @Override
