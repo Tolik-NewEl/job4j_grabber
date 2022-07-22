@@ -33,9 +33,15 @@ public class Emulator {
                 System.out.print("Введите имя файла: ");
                 fileName = scanner.nextLine();
                 switch (choice) {
-                    case 1 -> emulator.load(fileName);
-                    case 2 -> System.out.println(emulator.getCache(fileName));
-                    default -> run = false;
+                    case 1:
+                        emulator.load(fileName);
+                        break;
+                    case 2:
+                        System.out.println(emulator.getCache(fileName));
+                        break;
+                    default:
+                        run = false;
+                        break;
                 }
             } else {
                 System.out.println("Ошибка выбора!");
