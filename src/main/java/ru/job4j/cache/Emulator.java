@@ -7,9 +7,9 @@ public class Emulator {
     private static final int LOAD_CACHE = 1;
     private static final int GET_CACHE = 2;
     private static final String MENU =
-        "Выберите действие:\n"
-        + "1 - загрузить содержимое файла в кэш;\n"
-        + "2 - получить содержимое файла из кэша;\n"
+        "Выберите действие: "
+        + "1 - загрузить содержимое файла в кэш; "
+        + "2 - получить содержимое файла из кэша; "
         + "Любой другой выбор - выход.";
 
     public Emulator(String dirFileCache) {
@@ -17,7 +17,7 @@ public class Emulator {
     }
 
     public void load(String key) {
-        dirFileCache.load(key);
+        dirFileCache.put(key, dirFileCache.get(key));
     }
 
     public String getCache(String key) {
