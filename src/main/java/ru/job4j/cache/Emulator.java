@@ -4,6 +4,13 @@ import java.util.Scanner;
 
 public class Emulator {
     private final DirFileCache dirFileCache;
+    private static final int LOAD_CACHE = 1;
+    private static final int GET_CACHE = 2;
+    private static final String MENU =
+        "Выберите действие:\n"
+        + "1 - загрузить содержимое файла в кэш;\n"
+        + "2 - получить содержимое файла из кэша;\n"
+        + "Любой другой выбор - выход.";
 
     public Emulator(String dirFileCache) {
         this.dirFileCache = new DirFileCache(dirFileCache);
@@ -25,18 +32,16 @@ public class Emulator {
         boolean run = true;
         String fileName;
         while (run) {
-            System.out.println("Выберите действие");
-            System.out.println("1 - загрузить содержимое файла в кэш");
-            System.out.println("2 - получить содержимое файла из кэша");
+            System.out.println(MENU);
             int choice = Integer.parseInt(scanner.nextLine());
-            if (choice == 1 || choice == 2) {
+            if (choice == LOAD_CACHE || choice == GET_CACHE) {
                 System.out.print("Введите имя файла: ");
                 fileName = scanner.nextLine();
                 switch (choice) {
-                    case 1:
+                    case LOAD_CACHE:
                         emulator.load(fileName);
                         break;
-                    case 2:
+                    case GET_CACHE:
                         System.out.println(emulator.getCache(fileName));
                         break;
                     default:
@@ -44,7 +49,7 @@ public class Emulator {
                         break;
                 }
             } else {
-                System.out.println("Ошибка выбора!");
+                System.out.println("Ошибка выбора! Выход.");
                 break;
             }
         }
