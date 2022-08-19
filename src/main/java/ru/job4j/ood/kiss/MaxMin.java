@@ -14,9 +14,12 @@ public class MaxMin {
     }
 
     private <T> T compareValues(List<T> value, BiPredicate<T, T> predicate) {
-        T rsl = value.get(0);
-        for (T e : value) {
-            rsl = predicate.test(rsl, e) ? rsl : e;
+        T rsl = null;
+        if (!value.isEmpty()) {
+            rsl = value.get(0);
+            for (T e : value) {
+                rsl = predicate.test(rsl, e) ? rsl : e;
+            }
         }
         return rsl;
     }
