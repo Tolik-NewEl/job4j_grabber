@@ -1,5 +1,8 @@
 package ru.job4j.ood.solid.srp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     /**
      * Модель данных и геттеры в одном классе
@@ -25,5 +28,10 @@ public class User {
 
     public int getAge() {
         return age;
+    }
+
+    public void addUser(String name, String sex, int age) {
+        List<User> users = new ArrayList<>();
+        users.add(new User("name", "sex", 20));
     }
 }
