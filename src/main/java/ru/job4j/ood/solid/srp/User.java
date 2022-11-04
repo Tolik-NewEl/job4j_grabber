@@ -5,7 +5,7 @@ import java.util.List;
 
 public class User {
     /**
-     * Модель данных и геттеры в одном классе
+     * "Лишний" метод в модели данных.
      */
 
     private String name;
