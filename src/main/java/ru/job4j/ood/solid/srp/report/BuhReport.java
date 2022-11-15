@@ -14,12 +14,14 @@ public class BuhReport implements Report {
     private final Store store;
     private final DateTimeParser<Calendar> dateTimeParser;
     private final CurrencyConverter currencyConverter;
+    private final Currency target;
 
     public BuhReport(Store store, DateTimeParser<Calendar> dateTimeParser,
-                     CurrencyConverter currencyConverter) {
+                     CurrencyConverter currencyConverter, Currency target) {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
         this.currencyConverter = currencyConverter;
+        this.target = target;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class BuhReport implements Report {
                     .append(dateTimeParser.parse(employee.getHired())).append(" ")
                     .append(dateTimeParser.parse(employee.getFired())).append(" ")
                     .append(currencyConverter.convert(Currency.RUB,
-                            employee.getSalary(), Currency.USD))
+                            employee.getSalary(), target))
                     .append(System.lineSeparator());
         }
         return text.toString();
