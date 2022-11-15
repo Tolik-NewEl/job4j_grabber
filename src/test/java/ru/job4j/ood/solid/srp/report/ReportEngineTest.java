@@ -1,7 +1,6 @@
 package ru.job4j.ood.solid.srp.report;
 
 import org.junit.jupiter.api.Test;
-import ru.job4j.ood.solid.srp.currency.Currency;
 import ru.job4j.ood.solid.srp.currency.CurrencyConverter;
 import ru.job4j.ood.solid.srp.currency.InMemoryCurrencyConverter;
 import ru.job4j.ood.solid.srp.formatter.DateTimeParser;
@@ -43,7 +42,7 @@ public class ReportEngineTest {
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
         CurrencyConverter converter = new InMemoryCurrencyConverter();
         store.add(worker);
-        Report buh = new BuhReport(store, parser, converter, Currency.RUB, Currency.USD);
+        Report buh = new BuhReport(store, parser, converter);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator())
@@ -98,12 +97,12 @@ public class ReportEngineTest {
                 .append(worker1.getName()).append(";")
                 .append(parser.parse(worker1.getHired())).append(";")
                 .append(parser.parse(worker1.getFired())).append(";")
-                .append(worker1.getSalary()).append(";")
+                .append(worker1.getSalary())
                 .append(System.lineSeparator())
                 .append(worker2.getName()).append(";")
                 .append(parser.parse(worker2.getHired())).append(";")
                 .append(parser.parse(worker2.getFired())).append(";")
-                .append(worker2.getSalary()).append(";")
+                .append(worker2.getSalary())
                 .append(System.lineSeparator());
         assertThat(it.generate(em -> true)).isEqualTo(expect.toString());
     }

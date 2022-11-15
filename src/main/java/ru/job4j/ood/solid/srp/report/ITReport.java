@@ -26,7 +26,7 @@ public class ITReport implements Report {
             text.append(employee.getName()).append(";")
                     .append(dateTimeParser.parse(employee.getHired())).append(";")
                     .append(dateTimeParser.parse(employee.getFired())).append(";")
-                    .append(employee.getSalary()).append(";")
+                    .append(employee.getSalary())
                     .append(System.lineSeparator());
         }
         return text.toString();
