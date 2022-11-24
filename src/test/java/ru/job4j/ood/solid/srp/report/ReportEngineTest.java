@@ -9,6 +9,7 @@ import ru.job4j.ood.solid.srp.formatter.ReportDateTimeParser;
 import ru.job4j.ood.solid.srp.model.Employee;
 import ru.job4j.ood.solid.srp.store.MemStore;
 
+import javax.xml.bind.JAXBException;
 import java.time.OffsetDateTime;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -137,7 +138,7 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenXMLReport() {
+    public void whenXMLReport() throws JAXBException {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         OffsetDateTime dt = OffsetDateTime.ofInstant(now.toInstant(), now.getTimeZone().toZoneId());
