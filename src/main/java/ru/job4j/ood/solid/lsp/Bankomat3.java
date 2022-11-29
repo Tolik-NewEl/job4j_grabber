@@ -34,12 +34,12 @@ public class Bankomat3 {
         this.currency = currency;
     }
 
-    public class newATM extends Bankomat3 {
+    public class NewATM extends Bankomat3 {
 
         private double amount;
         private String currency;
 
-        public newATM(double amount, String currency) {
+        public NewATM(double amount, String currency) {
             this.amount = amount;
             this.currency = currency;
         }
