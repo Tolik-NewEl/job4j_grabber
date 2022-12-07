@@ -1,4 +1,4 @@
-package ru.job4j.ood.solid.lsp.foodStorage;
+package ru.job4j.ood.solid.lsp.foodstorage;
 
 import org.junit.jupiter.api.Test;
 

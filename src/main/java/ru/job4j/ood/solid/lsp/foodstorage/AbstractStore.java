@@ -1,10 +1,10 @@
-package ru.job4j.ood.solid.lsp.foodStorage;
+package ru.job4j.ood.solid.lsp.foodstorage;
 
 import java.time.LocalDate;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public abstract class AbstractStore implements Store{
+public abstract class AbstractStore implements Store {
 
     public static final double BETTER = 25.00;
     public static final double GOOD = 75.00;
