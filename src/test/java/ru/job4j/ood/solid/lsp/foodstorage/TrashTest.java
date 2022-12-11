@@ -11,7 +11,7 @@ class TrashTest {
 
     @Test
     public void whenAdd() {
-        Store trash = new Trash();
+        Store trash = new Trash(new LocalDateExpirationCalculator());
         Food food = new Food("Apple", LocalDate.now().minusDays(10),
                 LocalDate.now().minusDays(1), 10.00, 1.00);
         trash.add(food);

@@ -1,8 +1,15 @@
 package ru.job4j.ood.solid.lsp.foodstorage;
 
+import java.time.LocalDate;
+
 public class Shop extends AbstractStore {
 
-    private LocalDateExpirationCalculator calculator = new LocalDateExpirationCalculator();
+    private final ExpirationCalculator<LocalDate> calculator;
+
+    public Shop(ExpirationCalculator<LocalDate> calculator) {
+        this.calculator = calculator;
+    }
+
     public static final double WAREHOUSE = 25;
     public static final double TRASH = 100;
     private static final double DISCOUNT = 75;
@@ -13,14 +20,14 @@ public class Shop extends AbstractStore {
         double percent = calculator.calculateInPercent(food.getCreateDate(), food.getExpiryDate());
         if (percent > WAREHOUSE && percent < TRASH) {
             if (percent > DISCOUNT) {
-                discount(food);
+                setDiscount(food);
             }
             rsl = true;
         }
         return rsl;
     }
 
-    public void discount(Food food) {
+    private void setDiscount(Food food) {
         food.setPrice(food.getPrice() * food.getDiscount());
     }
 }

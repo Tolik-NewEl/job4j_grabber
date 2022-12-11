@@ -11,7 +11,7 @@ class WarehouseTest {
 
     @Test
     public void whenAdd() {
-        Store warehouse = new Warehouse();
+        Store warehouse = new Warehouse(new LocalDateExpirationCalculator());
         Food food = new Food("Apple", LocalDate.now(),
                 LocalDate.now().plusDays(10), 100.00, 0.1);
         warehouse.add(food);

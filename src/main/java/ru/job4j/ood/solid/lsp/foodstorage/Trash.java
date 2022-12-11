@@ -1,10 +1,16 @@
 package ru.job4j.ood.solid.lsp.foodstorage;
 
+import java.time.LocalDate;
+
 import static ru.job4j.ood.solid.lsp.foodstorage.Shop.TRASH;
 
 public class Trash extends AbstractStore {
 
-    private LocalDateExpirationCalculator calculator = new LocalDateExpirationCalculator();
+    private final ExpirationCalculator<LocalDate> calculator;
+
+    public Trash(ExpirationCalculator<LocalDate> calculator) {
+        this.calculator = calculator;
+    }
 
     @Override
     protected boolean isNotExpired(Food food) {

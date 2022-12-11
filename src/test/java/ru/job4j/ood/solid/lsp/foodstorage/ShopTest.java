@@ -11,7 +11,7 @@ class ShopTest {
 
     @Test
     public void whenAdd() {
-        Store shop = new Shop();
+        Store shop = new Shop(new LocalDateExpirationCalculator());
         Food food = new Food("Apple", LocalDate.now().minusDays(10),
                 LocalDate.now().plusDays(10), 100.00, 0.1);
         shop.add(food);
@@ -21,7 +21,7 @@ class ShopTest {
 
     @Test
     public void whenDiscountAndAdd() {
-        Store shop = new Shop();
+        Store shop = new Shop(new LocalDateExpirationCalculator());
         Food food = new Food("Apple", LocalDate.now().minusDays(10),
                 LocalDate.now().plusDays(1), 100.00, 0.95);
         shop.add(food);
