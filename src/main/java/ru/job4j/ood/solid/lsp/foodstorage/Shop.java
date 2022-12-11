@@ -3,9 +3,9 @@ package ru.job4j.ood.solid.lsp.foodstorage;
 public class Shop extends AbstractStore {
 
     private LocalDateExpirationCalculator calculator = new LocalDateExpirationCalculator();
-    public static double WAREHOUSE = 25.00;
-    public static double TRASH = 100.00;
-    private static double DISCOUNT = 75.00;
+    public static double WAREHOUSE = 25;
+    public static double TRASH = 100;
+    private static final double DISCOUNT = 75;
 
     @Override
     protected boolean isNotExpired(Food food) {
