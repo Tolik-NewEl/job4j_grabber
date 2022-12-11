@@ -3,8 +3,8 @@ package ru.job4j.ood.solid.lsp.foodstorage;
 public class Shop extends AbstractStore {
 
     private LocalDateExpirationCalculator calculator = new LocalDateExpirationCalculator();
-    public static double WAREHOUSE = 25;
-    public static double TRASH = 100;
+    public static final double WAREHOUSE = 25;
+    public static final double TRASH = 100;
     private static final double DISCOUNT = 75;
 
     @Override
