@@ -4,15 +4,14 @@ import java.time.LocalDate;
 
 public class Shop extends AbstractStore {
 
+    public static final double WAREHOUSE = 25;
+    public static final double TRASH = 100;
+    private static final double DISCOUNT = 75;
     private final ExpirationCalculator<LocalDate> calculator;
 
     public Shop(ExpirationCalculator<LocalDate> calculator) {
         this.calculator = calculator;
     }
-
-    public static final double WAREHOUSE = 25;
-    public static final double TRASH = 100;
-    private static final double DISCOUNT = 75;
 
     @Override
     protected boolean isNotExpired(Food food) {
