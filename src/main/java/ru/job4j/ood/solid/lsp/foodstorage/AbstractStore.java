@@ -1,16 +1,24 @@
 package ru.job4j.ood.solid.lsp.foodstorage;
 
-import java.time.LocalDate;
-
-import static java.time.temporal.ChronoUnit.DAYS;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractStore implements Store {
 
-    public static final double BETTER = 25.00;
-    public static final double GOOD = 75.00;
+    private List<Food> store = new ArrayList<>();
 
-    public static double dispatch(Food food) {
-        return (DAYS.between(food.getExpiryDate(), LocalDate.now()) * 100.00)
-                / DAYS.between(food.getExpiryDate(), food.getCreateDate());
+    public boolean add(Food food) {
+        boolean rsl = false;
+        if (isNotExpired(food)) {
+            store.add(food);
+            rsl = true;
+        }
+        return rsl;
     }
+
+    public List<Food> showAll() {
+        return new ArrayList<>(store);
+    }
+
+    protected abstract boolean isNotExpired(Food food);
 }

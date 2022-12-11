@@ -12,8 +12,8 @@ class TrashTest {
     @Test
     public void whenAdd() {
         Store trash = new Trash();
-        Food food = new Food("Apple", LocalDate.of(2022, 12, 1),
-                LocalDate.of(2022, 12, 5), 10.00, 1.00);
+        Food food = new Food("Apple", LocalDate.now().minusDays(10),
+                LocalDate.now().minusDays(1), 10.00, 1.00);
         trash.add(food);
         List<Food> expected = trash.showAll();
         assertThat(expected.get(0).getName()).isEqualTo("Apple");

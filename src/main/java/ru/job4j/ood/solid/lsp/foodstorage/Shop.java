@@ -1,30 +1,26 @@
 package ru.job4j.ood.solid.lsp.foodstorage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Shop extends AbstractStore {
 
-    List<Food> shop = new ArrayList<>();
+    private LocalDateExpirationCalculator calculator = new LocalDateExpirationCalculator();
+    public static double WAREHOUSE = 25.00;
+    public static double TRASH = 100.00;
+    private static double DISCOUNT = 75.00;
 
     @Override
-    public boolean add(Food food) {
+    protected boolean isNotExpired(Food food) {
         boolean rsl = false;
-        double expDays = dispatch(food);
-        if (expDays >= BETTER && expDays <= GOOD) {
-            shop.add(food);
-            rsl = true;
-        }
-        if (expDays < BETTER && expDays > 0) {
-            food.setPrice(food.getPrice() * food.getDiscount());
-            shop.add(food);
+        double percent = calculator.calculateInPercent(food.getCreateDate(), food.getExpiryDate());
+        if (percent > WAREHOUSE && percent < TRASH) {
+            if (percent > DISCOUNT) {
+                discount(food);
+            }
             rsl = true;
         }
         return rsl;
     }
 
-    @Override
-    public List<Food> showAll() {
-        return shop;
+    public void discount(Food food) {
+        food.setPrice(food.getPrice() * food.getDiscount());
     }
 }

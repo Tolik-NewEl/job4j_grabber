@@ -1,27 +1,14 @@
 package ru.job4j.ood.solid.lsp.foodstorage;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.time.temporal.ChronoUnit.DAYS;
+import static ru.job4j.ood.solid.lsp.foodstorage.Shop.TRASH;
 
 public class Trash extends AbstractStore {
 
-    List<Food> trash = new ArrayList<>();
+    private LocalDateExpirationCalculator calculator = new LocalDateExpirationCalculator();
 
     @Override
-    public boolean add(Food food) {
-        boolean rsl = false;
-        if (DAYS.between(LocalDate.now(), food.getExpiryDate()) <= 0) {
-            trash.add(food);
-            rsl = true;
-        }
-        return rsl;
-    }
-
-    @Override
-    public List<Food> showAll() {
-        return trash;
+    protected boolean isNotExpired(Food food) {
+        double percent = calculator.calculateInPercent(food.getCreateDate(), food.getExpiryDate());
+        return percent >= TRASH;
     }
 }
