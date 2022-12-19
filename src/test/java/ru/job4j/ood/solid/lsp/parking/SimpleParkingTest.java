@@ -20,7 +20,7 @@ class SimpleParkingTest {
 
     @Test
     public void whenAdd1CarAnd1TruckThanOK() {
-        Parking sp = new SimpleParking(1,1);
+        Parking sp = new SimpleParking(1, 1);
         Vehicle car = new Car("mazda");
         Vehicle truck = new Truck("MAN", 2);
         sp.add(car);
@@ -29,7 +29,7 @@ class SimpleParkingTest {
 
     @Test
     public void whenAdd1CarAnd2TruckThanFail() {
-        Parking sp = new SimpleParking(1,1);
+        Parking sp = new SimpleParking(1, 1);
         Vehicle car = new Car("mazda");
         Vehicle truck1 = new Truck("MAN", 2);
         Vehicle truck2 = new Truck("Iveco", 3);
@@ -40,14 +40,14 @@ class SimpleParkingTest {
 
     @Test
     public void whenAdd0CarAnd1TruckThanOK() {
-        Parking sp = new SimpleParking(1,1);
+        Parking sp = new SimpleParking(1, 1);
         Vehicle truck = new Truck("MAN", 2);
         assertThat(sp.add(truck)).isTrue();
     }
 
     @Test
     public void  whenAdd2CarAnd1TruckThanFail() {
-        Parking sp = new SimpleParking(2,1);
+        Parking sp = new SimpleParking(2, 1);
         Vehicle car = new Car("mazda");
         Vehicle truck1 = new Truck("MAN", 2);
         Vehicle truck2 = new Truck("Iveco", 2);
@@ -58,7 +58,7 @@ class SimpleParkingTest {
 
     @Test
     public void whenAddAndRemoveThanOK() {
-        Parking sp = new SimpleParking(1,1);
+        Parking sp = new SimpleParking(1, 1);
         Vehicle car = new Car("mazda");
         sp.add(car);
         assertThat(sp.remove(car)).isTrue();
@@ -66,7 +66,7 @@ class SimpleParkingTest {
 
     @Test
     public void whenAdd2AndRemove1ThanOK() {
-        Parking sp = new SimpleParking(2,0);
+        Parking sp = new SimpleParking(2, 0);
         Vehicle car1 = new Car("mazda");
         Vehicle car2 = new Car("BMW");
         sp.add(car1);
@@ -76,7 +76,7 @@ class SimpleParkingTest {
 
     @Test
     public void whenAdd1AndRemove2ThanFail() {
-        Parking sp = new SimpleParking(2,0);
+        Parking sp = new SimpleParking(2, 0);
         Vehicle car1 = new Car("mazda");
         Vehicle car2 = new Car("BMW");
         sp.add(car1);
