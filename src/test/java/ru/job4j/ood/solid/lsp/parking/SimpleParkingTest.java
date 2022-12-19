@@ -1,10 +1,9 @@
 package ru.job4j.ood.solid.lsp.parking;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
-@Disabled
+
 class SimpleParkingTest {
 
     @Test
@@ -81,5 +80,14 @@ class SimpleParkingTest {
         Vehicle car2 = new Car("BMW");
         sp.add(car1);
         assertThat(sp.remove(car2)).isFalse();
+    }
+
+    @Test
+    public void whenAddCarOnTruckPlaceThanFail() {
+        Parking sp = new SimpleParking(1, 1);
+        Vehicle car1 = new Car("mazda");
+        Vehicle car2 = new Car("BMW");
+        sp.add(car1);
+        assertThat(sp.add(car2)).isFalse();
     }
 }

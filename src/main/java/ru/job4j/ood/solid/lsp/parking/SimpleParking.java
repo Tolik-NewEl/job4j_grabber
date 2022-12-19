@@ -1,5 +1,7 @@
 package ru.job4j.ood.solid.lsp.parking;
 
+import static ru.job4j.ood.solid.lsp.parking.Car.SIZE;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,11 +21,42 @@ public class SimpleParking implements Parking {
 
     @Override
     public boolean add(Vehicle vehicle) {
+        if (isCar(vehicle) && carPlaces >= 1) {
+            carParking.add(vehicle);
+            carPlaces--;
+            return true;
+        }
+        if (!isCar(vehicle) && truckPlaces >= 1) {
+            truckParking.add(vehicle);
+            truckPlaces--;
+            return true;
+        }
+        if (!isCar(vehicle) && carPlaces >= vehicle.getSize()) {
+            carParking.add(vehicle);
+            carPlaces = carPlaces - vehicle.getSize();
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean remove(Vehicle vehicle) {
+        if (isCar(vehicle) && carParking.contains(vehicle)) {
+            carParking.remove(vehicle);
+            return true;
+        }
+        if (!isCar(vehicle) && truckParking.contains(vehicle)) {
+            truckParking.remove(vehicle);
+            return true;
+        }
+        if (!isCar(vehicle) && carParking.contains(vehicle)) {
+            carParking.remove(vehicle);
+            return true;
+        }
         return false;
+    }
+
+    private boolean isCar(Vehicle vehicle) {
+        return vehicle.getSize() == SIZE;
     }
 }
