@@ -43,14 +43,17 @@ public class SimpleParking implements Parking {
     public boolean remove(Vehicle vehicle) {
         if (isCar(vehicle) && carParking.contains(vehicle)) {
             carParking.remove(vehicle);
+            carPlaces++;
             return true;
         }
         if (!isCar(vehicle) && truckParking.contains(vehicle)) {
             truckParking.remove(vehicle);
+            truckPlaces++;
             return true;
         }
         if (!isCar(vehicle) && carParking.contains(vehicle)) {
             carParking.remove(vehicle);
+            carPlaces = carPlaces + vehicle.getSize();
             return true;
         }
         return false;

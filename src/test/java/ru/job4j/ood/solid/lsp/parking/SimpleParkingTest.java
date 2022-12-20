@@ -90,4 +90,34 @@ class SimpleParkingTest {
         sp.add(car1);
         assertThat(sp.add(car2)).isFalse();
     }
+
+    @Test
+    public void whenAddAndRemoveCarAndAddAgainThanOK() {
+        Parking sp = new SimpleParking(1, 0);
+        Vehicle car1 = new Car("mazda");
+        Vehicle car2 = new Car("BMW");
+        sp.add(car1);
+        sp.remove(car1);
+        assertThat(sp.add(car2)).isTrue();
+    }
+
+    @Test
+    public void whenAddAndRemoveTruckAndAddAgainThanOK() {
+        Parking sp = new SimpleParking(0, 1);
+        Vehicle truck1 = new Truck("MAN", 2);
+        Vehicle truck2 = new Truck("Iveco", 2);
+        sp.add(truck1);
+        sp.remove(truck1);
+        assertThat(sp.add(truck2)).isTrue();
+    }
+
+    @Test
+    public void whenAddAndRemoveTruckOnCarPlaceAndAddAgainThanOK() {
+        Parking sp = new SimpleParking(2, 0);
+        Vehicle truck1 = new Truck("MAN", 2);
+        Vehicle truck2 = new Truck("Iveco", 2);
+        sp.add(truck1);
+        sp.remove(truck1);
+        assertThat(sp.add(truck2)).isTrue();
+    }
 }
