@@ -21,12 +21,12 @@ public class SimpleParking implements Parking {
 
     @Override
     public boolean add(Vehicle vehicle) {
-        if (isCar(vehicle) && carPlaces >= 1) {
+        if (isCar(vehicle) && carPlaces >= SIZE) {
             carParking.add(vehicle);
             carPlaces--;
             return true;
         }
-        if (!isCar(vehicle) && truckPlaces >= 1) {
+        if (!isCar(vehicle) && truckPlaces >= SIZE) {
             truckParking.add(vehicle);
             truckPlaces--;
             return true;
