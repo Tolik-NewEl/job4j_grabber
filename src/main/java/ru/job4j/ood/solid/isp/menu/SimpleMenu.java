@@ -11,7 +11,7 @@ public class SimpleMenu implements Menu {
         if (findItem(childName).isPresent()) {
             return false;
         }
-        if (parentName == null) {
+        if (parentName == Menu.ROOT) {
             rootElements.add(new SimpleMenuItem(childName, actionDelegate));
             return true;
         }

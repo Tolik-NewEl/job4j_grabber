@@ -50,7 +50,7 @@ public class SimpleMenuTest {
     @Test
     public void whenPrint() {
         Menu menu = new SimpleMenu();
-        MenuPrinter printer = new SimpleMenuPrinter();
+        MenuPrinter printer = new ConsoleMenuPrinter();
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
         menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
         menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);

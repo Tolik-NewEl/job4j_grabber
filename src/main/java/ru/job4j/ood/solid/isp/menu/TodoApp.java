@@ -17,7 +17,7 @@ public class TodoApp {
 
     public static void main(String[] args) {
         Menu menu = new SimpleMenu();
-        MenuPrinter printer = new SimpleMenuPrinter();
+        MenuPrinter printer = new ConsoleMenuPrinter();
         Scanner sc = new Scanner(System.in);
         boolean run = true;
         String name;
